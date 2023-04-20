@@ -26,7 +26,7 @@ class App extends StatelessWidget {
           create: (context) =>
               PetsBloc(petsRepository: context.read<PetsRepository>())
                 ..add(LoadTodos()),
-          child: const Pets(),
+          child: Pets(),
         ),
       ),
     );

@@ -4,7 +4,7 @@ part of 'pets_bloc.dart';
 enum PetsStatus { loading, loaded, failure }
 
 class PetsState extends Equatable {
-  PetsState({
+  PetsState._({
     this.petsStatus = PetsStatus.loading,
     this.searchTerm = '',
     this.error = '',
@@ -12,6 +12,14 @@ class PetsState extends Equatable {
     PetsModel? allPets,
   })  : allPets = allPets ?? PetsModel.empty,
         filteredPets = filteredPets ?? PetsModel.empty;
+
+  factory PetsState.loading() => PetsState._();
+  factory PetsState.loaded(PetsModel pets) => PetsState._(
+        filteredPets: pets,
+        allPets: pets,
+        petsStatus: PetsStatus.loaded,
+      );
+  factory PetsState.failure(String error) => PetsState._(error: error);
 
   final PetsModel allPets;
   final PetsModel filteredPets;
@@ -35,7 +43,7 @@ class PetsState extends Equatable {
     String? searchTerm,
     String? error,
   }) {
-    return PetsState(
+    return PetsState._(
       allPets: allPets ?? this.allPets,
       filteredPets: filteredPets ?? this.filteredPets,
       petsStatus: petsStatus ?? this.petsStatus,

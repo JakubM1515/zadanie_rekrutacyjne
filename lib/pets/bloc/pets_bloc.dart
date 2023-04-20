@@ -7,23 +7,18 @@ part 'pets_event.dart';
 part 'pets_state.dart';
 
 class PetsBloc extends Bloc<PetsEvent, PetsState> {
-  PetsBloc({required this.petsRepository}) : super(PetsState()) {
+  PetsBloc({required this.petsRepository}) : super(PetsState.loading()) {
     on<LoadTodos>((event, emit) async {
       emit(state.copyWith(petsStatus: PetsStatus.loading));
       try {
         final pets = await petsRepository.getPets();
         emit(
-          state.copyWith(
-            allPets: pets,
-            filteredPets: pets,
-            petsStatus: PetsStatus.loaded,
-          ),
+          PetsState.loaded(pets),
         );
       } catch (e) {
         emit(
-          state.copyWith(
-            petsStatus: PetsStatus.failure,
-            error: e.toString(),
+          PetsState.failure(
+            e.toString(),
           ),
         );
       }

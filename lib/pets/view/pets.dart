@@ -4,7 +4,8 @@ import 'package:zadanie_rekrutacyjne/pet_details/pet_details.dart';
 import 'package:zadanie_rekrutacyjne/pets/bloc/pets_bloc.dart';
 
 class Pets extends StatelessWidget {
-  const Pets({super.key});
+  Pets({super.key});
+  final searchTermController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +37,25 @@ class Pets extends StatelessWidget {
             Expanded(
               child: _buildPetsList(),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              child: Flexible(
+            Container(
+              alignment: AlignmentDirectional.bottomEnd,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 child: TextField(
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.search),
+                  controller: searchTermController,
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.search),
                     labelText: 'Wpisz nazwę',
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        searchTermController.clear();
+                        context.read<PetsBloc>().add(
+                              const ChangeSearchTerm(searchTerm: ''),
+                            );
+                      },
+                      icon: const Icon(Icons.clear),
+                    ),
                   ),
                   onChanged: (value) => context.read<PetsBloc>().add(
                         ChangeSearchTerm(searchTerm: value),
