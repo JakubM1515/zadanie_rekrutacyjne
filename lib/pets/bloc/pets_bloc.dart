@@ -21,7 +21,10 @@ class PetsBloc extends Bloc<PetsEvent, PetsState> {
         );
       } catch (e) {
         emit(
-          state.copyWith(petsStatus: PetsStatus.failure, error: e.toString()),
+          state.copyWith(
+            petsStatus: PetsStatus.failure,
+            error: e.toString(),
+          ),
         );
       }
     });
@@ -35,7 +38,11 @@ class PetsBloc extends Bloc<PetsEvent, PetsState> {
           )
           .toList();
 
-      emit(state.copyWith(filteredPets: PetsModel(pets: pets)));
+      emit(
+        state.copyWith(
+          filteredPets: PetsModel(pets: pets),
+        ),
+      );
     });
   }
 
