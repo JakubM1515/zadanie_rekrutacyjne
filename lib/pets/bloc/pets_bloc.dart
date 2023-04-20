@@ -7,14 +7,14 @@ part 'pets_event.dart';
 part 'pets_state.dart';
 
 class PetsBloc extends Bloc<PetsEvent, PetsState> {
+  final PetsRepository petsRepository;
+  
   PetsBloc({required this.petsRepository}) : super(PetsState.loading()) {
     on<LoadTodos>((event, emit) async {
-      emit(state.copyWith(petsStatus: PetsStatus.loading));
+      emit(PetsState.loading());
       try {
         final pets = await petsRepository.getPets();
-        emit(
-          PetsState.loaded(pets),
-        );
+        emit(PetsState.loaded(pets));
       } catch (e) {
         emit(
           PetsState.failure(
@@ -25,13 +25,8 @@ class PetsBloc extends Bloc<PetsEvent, PetsState> {
     });
 
     on<ChangeSearchTerm>((event, emit) {
-      emit(
-        state.copyWith(
-          searchTerm: event.searchTerm,
-        ),
-      );
+      emit(state.copyWith(searchTerm: event.searchTerm));
     });
   }
 
-  final PetsRepository petsRepository;
 }

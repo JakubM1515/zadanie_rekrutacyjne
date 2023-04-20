@@ -16,7 +16,8 @@ class PetsState extends Equatable {
         allPets: pets,
         petsStatus: PetsStatus.loaded,
       );
-  factory PetsState.failure(String error) => PetsState._(error: error);
+  factory PetsState.failure(String error) =>
+      PetsState._(error: error, petsStatus: PetsStatus.failure);
 
   final PetsModel allPets;
   final PetsStatus petsStatus;
