@@ -8,24 +8,30 @@ class PetsState extends Equatable {
     this.petsStatus = PetsStatus.loading,
     this.searchTerm = '',
     this.error = '',
-    PetsModel? filteredPets,
     PetsModel? allPets,
-  })  : allPets = allPets ?? PetsModel.empty,
-        filteredPets = filteredPets ?? PetsModel.empty;
+  }) : allPets = allPets ?? PetsModel.empty;
 
   factory PetsState.loading() => PetsState._();
   factory PetsState.loaded(PetsModel pets) => PetsState._(
-        filteredPets: pets,
         allPets: pets,
         petsStatus: PetsStatus.loaded,
       );
   factory PetsState.failure(String error) => PetsState._(error: error);
 
   final PetsModel allPets;
-  final PetsModel filteredPets;
   final PetsStatus petsStatus;
   final String searchTerm;
   final String error;
+
+  PetsModel get filteredPets => allPets.copyWith(
+        pets: allPets.pets
+            .where(
+              (pet) => pet.name.toLowerCase().contains(
+                    searchTerm.toLowerCase(),
+                  ),
+            )
+            .toList(),
+      );
 
   @override
   List<Object> get props => [
@@ -33,7 +39,6 @@ class PetsState extends Equatable {
         petsStatus,
         searchTerm,
         error,
-        filteredPets,
       ];
 
   PetsState copyWith({
@@ -45,7 +50,6 @@ class PetsState extends Equatable {
   }) {
     return PetsState._(
       allPets: allPets ?? this.allPets,
-      filteredPets: filteredPets ?? this.filteredPets,
       petsStatus: petsStatus ?? this.petsStatus,
       searchTerm: searchTerm ?? this.searchTerm,
       error: error ?? this.error,

@@ -35,7 +35,7 @@ class PetDetails extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 8),
               child: Text(
-                pet.breed ?? 'No breed specified',
+                pet.breed!,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             )

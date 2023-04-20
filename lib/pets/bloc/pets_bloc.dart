@@ -25,17 +25,9 @@ class PetsBloc extends Bloc<PetsEvent, PetsState> {
     });
 
     on<ChangeSearchTerm>((event, emit) {
-      final pets = state.allPets.pets
-          .where(
-            (pet) => pet.name.toLowerCase().contains(
-                  event.searchTerm.toLowerCase(),
-                ),
-          )
-          .toList();
-
       emit(
         state.copyWith(
-          filteredPets: PetsModel(pets: pets),
+          searchTerm: event.searchTerm,
         ),
       );
     });

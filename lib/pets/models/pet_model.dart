@@ -12,7 +12,7 @@ class PetModel {
   factory PetModel.fromMap(Map<String, dynamic> map) {
     return PetModel(
       name: map['name'] as String,
-      breed: map['breed'] != null ? map['breed'] as String : null,
+      breed: map['breed'] as String? ?? 'No breed specified',
     );
   }
   final String name;
@@ -21,7 +21,7 @@ class PetModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'name': name,
-      'breed': breed,
+      'breed': breed ?? 'No breed specified',
     };
   }
 }

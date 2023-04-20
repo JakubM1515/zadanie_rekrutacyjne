@@ -113,7 +113,7 @@ class Pets extends StatelessWidget {
         color: Colors.black,
       ),
       title: Text(pet.name),
-      subtitle: Text(pet.breed ?? 'No breed specified'),
+      subtitle: Text(pet.breed!),
     );
   }
 

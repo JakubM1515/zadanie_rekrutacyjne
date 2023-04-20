@@ -29,4 +29,12 @@ class PetsModel {
 
   factory PetsModel.fromJson(String source) =>
       PetsModel.fromMap(json.decode(source) as List<dynamic>);
+
+  PetsModel copyWith({
+    List<PetModel>? pets,
+  }) {
+    return PetsModel(
+      pets: pets ?? this.pets,
+    );
+  }
 }
