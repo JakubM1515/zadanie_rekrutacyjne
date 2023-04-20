@@ -88,12 +88,13 @@ class Pets extends StatelessWidget {
     final pet = state.filteredPets.pets[index];
     return ListTile(
       onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PetDetails(
-              pet: pet,
-            ),
-          )),
+        context,
+        MaterialPageRoute(
+          builder: (context) => PetDetails(
+            pet: pet,
+          ),
+        ),
+      ),
       leading: const Icon(
         Icons.pets,
         color: Colors.black,
